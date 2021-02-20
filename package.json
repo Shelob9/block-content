@@ -75,5 +75,9 @@
     "@testing-library/react": "^11.2.5",
     "@wordpress/block-serialization-default-parser": "^3.9.1",
     "react-html-parser": "^2.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shelob9/block-content"
   }
 }

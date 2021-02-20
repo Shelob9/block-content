@@ -11,7 +11,6 @@ import ReactHtmlParser from 'react-html-parser';
 import ComponetRender from './ComponetRender';
 import { preProcessTagNode } from './preProcessNode';
 
-
 /**
  * Node being parsed to element
  */
@@ -21,34 +20,35 @@ export type NODE = {
   attribs: any;
   children?: NODE[];
   next?: NODE;
-  data?:string
+  data?: string;
 };
-export type NODE_TRANSFORMER = (node: NODE, index: number) => ReactElement;
 
+//Transform function for react-html-parser
 export function transform(node: NODE, index: number): ReactElement {
   if ('style' === node.type || 'script' === node.type) {
     return <Fragment key={index} />;
   }
   if ('tag' === node.type) {
     node = preProcessTagNode(node);
-    return (<Fragment key={index}>
-      <ComponetRender node={node} />
-      </Fragment>)
+    return (
+      <Fragment key={index}>
+        <ComponetRender node={node} />
+      </Fragment>
+    );
   }
-  return <Fragment key={index} />
+  return <Fragment key={index} />;
 }
 
-export type PROPS = {
-  rawContent: string;
-};
-
-let parseAndAdd = (block: Block, els: ReactNode[]) => {
+//@todo make this step not needed.
+const addAndParseBlock = (block: Block, els: ReactNode[]) => {
   if (block.innerBlocks.length) {
+    //Special handling for columns
+    // @todo use same render function as other elements
     switch (block.blockName) {
       case 'core/columns':
         let innerBlockEls: ReactElement[] = [];
         Object.values(block.innerBlocks).forEach((innerBlock: Block) => {
-          parseAndAdd(innerBlock, innerBlockEls);
+          addAndParseBlock(innerBlock, innerBlockEls);
         });
         els.push(
           createElement(
@@ -63,7 +63,7 @@ let parseAndAdd = (block: Block, els: ReactNode[]) => {
       case 'core/column': {
         let innerBlockEls: ReactElement[] = [];
         Object.values(block.innerBlocks).forEach((innerBlock: Block) => {
-          parseAndAdd(innerBlock, innerBlockEls);
+          addAndParseBlock(innerBlock, innerBlockEls);
         });
         els.push(
           createElement(
@@ -89,22 +89,27 @@ let parseAndAdd = (block: Block, els: ReactNode[]) => {
 
 /**
  * Render block content with fallback to rendered.
- * 
+ *
  * Safer option than default export
  */
-export const RenderBlockContent: FC<{ raw?: string; rendered: string;}> = ({raw,rendered}) => {
+export const RenderBlockContent: FC<{ raw?: string; rendered: string }> = ({
+  raw,
+  rendered,
+}) => {
   function createMarkup() {
-      return { __html: rendered };
-  };
-  if (!raw) { 
-      return <div dangerouslySetInnerHTML={createMarkup()} />
+    return { __html: rendered };
   }
-  return <BlockContent rawContent={raw} />
-}
-
+  if (!raw) {
+    return <div dangerouslySetInnerHTML={createMarkup()} />;
+  }
+  return <BlockContent rawContent={raw} />;
+};
+export type PROPS = {
+  rawContent: string;
+};
 /**
  * Render a block
- * 
+ *
  * Only works with raw block content.
  */
 const BlockContent = (props: PROPS) => {
@@ -113,7 +118,7 @@ const BlockContent = (props: PROPS) => {
     let blocks = parse(rawContent);
     let els: ReactNode[] = [];
     Object.values(blocks).forEach((block: Block) => {
-      parseAndAdd(block, els);
+      addAndParseBlock(block, els);
     });
     return () => createElement('div', {}, els);
   }, [rawContent]);

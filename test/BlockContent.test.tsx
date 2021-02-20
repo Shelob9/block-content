@@ -27,14 +27,10 @@ describe('BlockContent', () => {
     <!-- /wp:paragraph -->`}
       />
     );
-    expect(container.querySelectorAll('p').length)
-    .toEqual(1);
-    expect(container.querySelectorAll('em').length)
-    .toEqual(1);
-      //With the className
-      expect(container.querySelectorAll('.outer').length)
-    .toEqual(1);
-    expect(container.querySelectorAll('.inner').length)
-    .toEqual(1);
+    expect(container.querySelectorAll('p').length).toEqual(1);
+    expect(container.querySelectorAll('em').length).toEqual(1);
+    //With the className
+    expect(container.querySelectorAll('.outer').length).toEqual(1);
+    expect(container.querySelectorAll('.inner').length).toEqual(1);
   });
 });
