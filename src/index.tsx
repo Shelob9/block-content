@@ -1,9 +1,15 @@
-import { Block, parse } from "@wordpress/block-serialization-default-parser";
-import React, { createElement, ReactNode, useMemo, Fragment, ReactElement } from "react";
-import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import { Block, parse } from '@wordpress/block-serialization-default-parser';
+import React, {
+  createElement,
+  ReactNode,
+  useMemo,
+  Fragment,
+  ReactElement,
+} from 'react';
+import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
 export type NODE = {
-  type: "style" | "tag" | "text" | "script";
+  type: 'style' | 'tag' | 'text' | 'script';
   name?: string;
   attribs: any;
   children?: NODE[];
@@ -12,15 +18,15 @@ export type NODE = {
 export type NODE_TRANSFORMER = (node: NODE, index: number) => ReactElement;
 
 export function transform(node: NODE, index: number): ReactElement {
-  if ("style" === node.type || "script" === node.type) {
+  if ('style' === node.type || 'script' === node.type) {
     return <Fragment />;
   }
-  if ("tag" === node.type) {
+  if ('tag' === node.type) {
     switch (node.name) {
-      case "i":
-        node.name = "em";
+      case 'i':
+        node.name = 'em';
         break;
-      case "p":
+      case 'p':
         node.attribs = {
           ...node.attribs,
           //class: "pretzels"
@@ -37,38 +43,34 @@ export type PROPS = {
   rawContent: string;
 };
 
-let parseAndAdd = (
-  block: Block,
-  els: ReactNode[],
-  transformer: NODE_TRANSFORMER
-) => {
+let parseAndAdd = (block: Block, els: ReactNode[]) => {
   if (block.innerBlocks.length) {
     switch (block.blockName) {
-      case "core/columns":
+      case 'core/columns':
         let innerBlockEls: ReactElement[] = [];
         Object.values(block.innerBlocks).forEach((innerBlock: Block) => {
-          parseAndAdd(innerBlock, innerBlockEls, transformer);
+          parseAndAdd(innerBlock, innerBlockEls);
         });
         els.push(
           createElement(
-            "div",
+            'div',
             {
-              class: `wp-block-columns has-${block.attrs.columns}-columns`
+              class: `wp-block-columns has-${block.attrs.columns}-columns`,
             },
             innerBlockEls
           )
         );
         return els;
-      case "core/column": {
+      case 'core/column': {
         let innerBlockEls: ReactElement[] = [];
         Object.values(block.innerBlocks).forEach((innerBlock: Block) => {
-          parseAndAdd(innerBlock, innerBlockEls, transformer);
+          parseAndAdd(innerBlock, innerBlockEls);
         });
         els.push(
           createElement(
-            "div",
+            'div',
             {
-              class: `wp-block-column`
+              class: `wp-block-column`,
             },
             innerBlockEls
           )
@@ -79,7 +81,7 @@ let parseAndAdd = (
   } else {
     els.push(
       ReactHtmlParser(block.innerHTML, {
-        transform: transformer
+        transform,
       })
     );
   }
@@ -87,14 +89,14 @@ let parseAndAdd = (
 };
 
 const BlockContent = (props: PROPS) => {
-  let { rawContent, transformer } = props;
+  let { rawContent } = props;
   let Component = useMemo(() => {
     let blocks = parse(rawContent);
     let els: ReactNode[] = [];
     Object.values(blocks).forEach((block: Block) => {
-      parseAndAdd(block, els, transformer);
+      parseAndAdd(block, els);
     });
-    return () => createElement("div", {}, els);
+    return () => createElement('div', {}, els);
   }, [rawContent]);
 
   return (
