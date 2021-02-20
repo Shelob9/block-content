@@ -1,5 +1,6 @@
 import React,{ createElement, FC, Fragment } from "react";
 import { NODE } from ".";
+import { preProcessTagNode } from "./preProcessNode";
 
  const ComponetRender : FC<{node:NODE}> = ({node}) => {
     return createElement(
@@ -12,7 +13,7 @@ import { NODE } from ".";
                     {'text' === child.type ? (
                         <Fragment>{child.data}</Fragment>
                     ) : (
-                        <ComponetRender node={child} />
+                        <ComponetRender node={preProcessTagNode(child)} />
                     )}
                 </Fragment>
             )

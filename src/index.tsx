@@ -8,6 +8,8 @@ import React, {
   FC,
 } from 'react';
 import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
+import ComponetRender from './ComponetRender';
+import { preProcessTagNode } from './preProcessNode';
 
 
 /**
@@ -28,29 +30,8 @@ export function transform(node: NODE, index: number): ReactElement {
     return <Fragment />;
   }
   if ('tag' === node.type) {
-    switch (node.name) {
-      case 'i':
-        node.name = 'em';
-        break;
-      default:
-        break;
-        
-    }
-    return createElement(
-      node.name as string,
-      {className: node.attribs && node.attribs.class ? node.attribs.class : undefined},
-      node.children ? node.children.map(
-        (child : NODE,i:number) => {
-          if( 'text' ===  child.type ){
-            return <Fragment key={i}>{child.data}</Fragment>
-          }
-          console.log(child);
-          return <Fragment key={i}>{``}</Fragment>
-
-        }
-      ) : []
-    )
-    
+    node = preProcessTagNode(node);
+    return <ComponetRender node={node} />
   }
   return convertNodeToElement(node, index, transform);
 }
