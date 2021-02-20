@@ -27,11 +27,13 @@ export type NODE_TRANSFORMER = (node: NODE, index: number) => ReactElement;
 
 export function transform(node: NODE, index: number): ReactElement {
   if ('style' === node.type || 'script' === node.type) {
-    return <Fragment />;
+    return <Fragment key={index} />;
   }
   if ('tag' === node.type) {
     node = preProcessTagNode(node);
-    return <ComponetRender node={node} />
+    return (<Fragment key={index}>
+      <ComponetRender node={node} />
+      </Fragment>)
   }
   return <Fragment key={index} />
 }
