@@ -7,7 +7,7 @@ import React, {
   ReactElement,
   FC,
 } from 'react';
-import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import ComponetRender from './ComponetRender';
 import { preProcessTagNode } from './preProcessNode';
 
@@ -33,7 +33,7 @@ export function transform(node: NODE, index: number): ReactElement {
     node = preProcessTagNode(node);
     return <ComponetRender node={node} />
   }
-  return convertNodeToElement(node, index, transform);
+  return <Fragment key={index} />
 }
 
 export type PROPS = {
