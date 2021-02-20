@@ -19,4 +19,22 @@ describe('BlockContent', () => {
     );
     expect(getByText('Hi Roy')).toBeTruthy();
   });
+  it('Prints a paragraph with em inside', () => {
+    const { container } = render(
+      <BlockContent
+        rawContent={`<!-- wp:paragraph -->
+    <p class="outer"><em class="inner">Hi Roy</em></p>
+    <!-- /wp:paragraph -->`}
+      />
+    );
+    expect(container.querySelectorAll('p').length)
+    .toEqual(1);
+    expect(container.querySelectorAll('em').length)
+    .toEqual(1);
+      //With the className
+      expect(container.querySelectorAll('.outer').length)
+    .toEqual(1);
+    expect(container.querySelectorAll('.inner').length)
+    .toEqual(1);
+  });
 });

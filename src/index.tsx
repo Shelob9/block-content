@@ -9,12 +9,17 @@ import React, {
 } from 'react';
 import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
+
+/**
+ * Node being parsed to element
+ */
 export type NODE = {
   type: 'style' | 'tag' | 'text' | 'script';
   name?: string;
   attribs: any;
   children?: NODE[];
   next?: NODE;
+  data?:string
 };
 export type NODE_TRANSFORMER = (node: NODE, index: number) => ReactElement;
 
@@ -27,15 +32,25 @@ export function transform(node: NODE, index: number): ReactElement {
       case 'i':
         node.name = 'em';
         break;
-      case 'p':
-        node.attribs = {
-          ...node.attribs,
-          //class: "pretzels"
-        };
-        break;
       default:
         break;
+        
     }
+    return createElement(
+      node.name as string,
+      {className: node.attribs && node.attribs.class ? node.attribs.class : undefined},
+      node.children ? node.children.map(
+        (child : NODE,i:number) => {
+          if( 'text' ===  child.type ){
+            return <Fragment key={i}>{child.data}</Fragment>
+          }
+          console.log(child);
+          return <Fragment key={i}>{``}</Fragment>
+
+        }
+      ) : []
+    )
+    
   }
   return convertNodeToElement(node, index, transform);
 }
