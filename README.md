@@ -4,7 +4,7 @@
 ## Install
 
 ```sh
-?
+yarn add https://github.com/Shelob9/block-content
 ```
 
 ## Usage
