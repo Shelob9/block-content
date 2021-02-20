@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ComponetRender renders paragraph with tag children 1`] = `
+<div>
+  <p
+    class="food"
+  >
+    <em
+      class="food"
+    >
+      Hi Roy
+    </em>
+  </p>
+</div>
+`;

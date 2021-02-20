@@ -1,7 +1,7 @@
 import React,{ createElement, FC, Fragment } from "react";
 import { NODE } from ".";
 
- const RecursiveRender : FC<{node:NODE}> = ({node}) => {
+ const ComponetRender : FC<{node:NODE}> = ({node}) => {
     return createElement(
       node.name as string,
       {className: node.attribs && node.attribs.class ? node.attribs.class : undefined},
@@ -12,16 +12,13 @@ import { NODE } from ".";
                     {'text' === child.type ? (
                         <Fragment>{child.data}</Fragment>
                     ) : (
-                        <RecursiveRender node={child} />
+                        <ComponetRender node={child} />
                     )}
                 </Fragment>
             )
-          
-          
-  
         }
       ) : []
     )
   }
 
-  export default RecursiveRender;
+  export default ComponetRender;
