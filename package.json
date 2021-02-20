@@ -35,7 +35,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@joshpress/block-content",
+  "name": "@shelob9/block-content",
   "private": false,
   "author": "Josh Pollock",
   "module": "dist/block-content.esm.js",

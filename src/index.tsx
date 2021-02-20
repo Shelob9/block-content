@@ -5,6 +5,7 @@ import React, {
   useMemo,
   Fragment,
   ReactElement,
+  FC,
 } from 'react';
 import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
@@ -88,6 +89,26 @@ let parseAndAdd = (block: Block, els: ReactNode[]) => {
   return els;
 };
 
+/**
+ * Render block content with fallback to rendered.
+ * 
+ * Safer option than default export
+ */
+export const RenderBlockContent: FC<{ raw?: string; rendered: string;}> = ({raw,rendered}) => {
+  function createMarkup() {
+      return { __html: rendered };
+  };
+  if (!raw) { 
+      return <div dangerouslySetInnerHTML={createMarkup()} />
+  }
+  return <BlockContent rawContent={raw} />
+}
+
+/**
+ * Render a block
+ * 
+ * Only works with raw block content.
+ */
 const BlockContent = (props: PROPS) => {
   let { rawContent } = props;
   let Component = useMemo(() => {
