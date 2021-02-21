@@ -17,7 +17,7 @@ const ComponetRender: FC<{ node: NODE; components?: ComponetsMap }> = props => {
     if (props.components) {
       return props.components;
     }
-    if( _themeContext ){
+    if (_themeContext) {
       return {
         ...defaultComponents,
         ..._themeContext.components,
@@ -26,7 +26,7 @@ const ComponetRender: FC<{ node: NODE; components?: ComponetsMap }> = props => {
     return {
       ...defaultComponents,
     };
-  }, [props.components]);
+  }, [props.components, _themeContext]);
 
   return createElement(
     node.name && components.hasOwnProperty(node.name)
