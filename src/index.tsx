@@ -10,7 +10,6 @@ import React, {
 import ReactHtmlParser from 'react-html-parser';
 import ComponetRender from './ComponetRender';
 import { preProcessTagNode } from './preProcessNode';
-
 /**
  * Node being parsed to element
  */
