@@ -58,4 +58,29 @@ describe('ComponetRender', () => {
     expect(getByText('Hi Roy')).toBeTruthy();
     expect(container).toMatchSnapshot();
   });
+
+  it('Passes href to a', () => {
+    let node: NODE = {
+      type: 'tag',
+      name: 'a',
+      attribs: {
+        class: 'food',
+        href: 'https://hiroy.club'
+      },
+      children: [
+        {
+          type: 'text',
+          data: 'Hi Roy',
+          attribs: {},
+        },
+      ],
+    };
+    const { container, getByText } = render(<ComponetRender node={node} />);
+    expect(getByText('Hi Roy')).toBeTruthy();
+
+    expect(container.querySelectorAll('a').length).toBe(1);
+    expect(container.querySelectorAll('.food').length).toBe(1);
+    expect(container.querySelectorAll('.food')[0].attributes.href).toBe('https://hiroy.club');
+
+  });
 });
