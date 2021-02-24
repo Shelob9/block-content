@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import ComponetRender from '../src/ComponetRender';
+import ComponetRender, {createAttributes} from '../src/ComponetRender';
 import { NODE } from '../src';
 
 describe('ComponetRender', () => {
@@ -80,7 +80,40 @@ describe('ComponetRender', () => {
 
     expect(container.querySelectorAll('a').length).toBe(1);
     expect(container.querySelectorAll('.food').length).toBe(1);
-    expect(container.querySelectorAll('.food')[0].attributes.href).toBe('https://hiroy.club');
+    //@ts-ignore
+    expect(container.querySelectorAll('.food')[0].href).toMatch("https://hiroy.club/")
+  });
+});
 
+describe('createAttributes', () => {
+  it('Removes everyhting but className for p', () => {
+    let node: NODE = {
+      type: 'tag',
+      name: 'p',
+      attribs: {
+        class: 'food',
+      },
+      children: []
+    };
+    expect(createAttributes(node)).toMatchObject({className: 'food'})
+  });
+
+  it('Allows anchors to have href and _target', () => {
+    let  attribs = {
+      href: '#cactus',
+      _target: '_blank',
+      class: 'linky'
+    }
+    let node: NODE = {
+      type: 'tag',
+      name: 'a',
+      attribs,
+      children: []
+    };
+    expect(createAttributes(node)).toMatchObject({
+      href: '#cactus',
+      _target: '_blank',
+      className: 'linky'
+    })
   });
 });

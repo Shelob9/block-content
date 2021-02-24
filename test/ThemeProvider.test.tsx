@@ -21,9 +21,13 @@ test('uses componets', () => {
   const components: ComponetsMap = {
     p: ({ children }) => <p className="test">{children}</p>,
     span: ({ children }) => <strong>{children}</strong>,
+    a: ({ children, href }) => <a href={href}>{children}</a>
   };
+  
   const { container, getByText } = render(
-    <ThemeProvider components={components}>
+    <ThemeProvider
+      components={components}
+    >
       <Test />
     </ThemeProvider>
   );
