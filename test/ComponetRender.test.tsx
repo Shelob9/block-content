@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import ComponetRender, {createAttributes} from '../src/ComponetRender';
+import ComponetRender, { createAttributes } from '../src/ComponetRender';
 import { NODE } from '../src';
 
 describe('ComponetRender', () => {
@@ -65,7 +65,7 @@ describe('ComponetRender', () => {
       name: 'a',
       attribs: {
         class: 'food',
-        href: 'https://hiroy.club'
+        href: 'https://hiroy.club',
       },
       children: [
         {
@@ -81,7 +81,9 @@ describe('ComponetRender', () => {
     expect(container.querySelectorAll('a').length).toBe(1);
     expect(container.querySelectorAll('.food').length).toBe(1);
     //@ts-ignore
-    expect(container.querySelectorAll('.food')[0].href).toMatch("https://hiroy.club/")
+    expect(container.querySelectorAll('.food')[0].href).toMatch(
+      'https://hiroy.club/'
+    );
   });
 });
 
@@ -93,27 +95,27 @@ describe('createAttributes', () => {
       attribs: {
         class: 'food',
       },
-      children: []
+      children: [],
     };
-    expect(createAttributes(node)).toMatchObject({className: 'food'})
+    expect(createAttributes(node)).toMatchObject({ className: 'food' });
   });
 
   it('Allows anchors to have href and _target', () => {
-    let  attribs = {
+    let attribs = {
       href: '#cactus',
       _target: '_blank',
-      class: 'linky'
-    }
+      class: 'linky',
+    };
     let node: NODE = {
       type: 'tag',
       name: 'a',
       attribs,
-      children: []
+      children: [],
     };
     expect(createAttributes(node)).toMatchObject({
       href: '#cactus',
       _target: '_blank',
-      className: 'linky'
-    })
+      className: 'linky',
+    });
   });
 });
