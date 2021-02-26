@@ -1,10 +1,5 @@
 import { Block, parse } from '@wordpress/block-serialization-default-parser';
-import React, {
-  createElement,
-  ReactNode,
-  useMemo,
-  FC,
-} from 'react';
+import React, { createElement, ReactNode, useMemo, FC } from 'react';
 import { addAndParseBlock } from './transformNodes';
 
 /**

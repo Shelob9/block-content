@@ -1,5 +1,5 @@
 import { Block } from '@wordpress/block-serialization-default-parser';
-import React,{ ReactElement, Fragment, ReactNode, createElement } from 'react';
+import React, { ReactElement, Fragment, ReactNode, createElement } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import ComponetRender from './ComponetRender';
 import { preProcessTagNode } from './preProcessNode';
@@ -29,7 +29,6 @@ export function transform(node: NODE, index: number): ReactElement {
   }
   return <Fragment key={index} />;
 }
-
 
 export const addAndParseBlock = (block: Block, els: ReactNode[]) => {
   //@todo make this step not needed.
