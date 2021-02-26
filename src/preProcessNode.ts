@@ -1,4 +1,4 @@
-import { NODE } from '.';
+import { NODE } from './addAndParseBlock';
 
 /**
  * Prepares nodes with type "tag" to be rendered.
