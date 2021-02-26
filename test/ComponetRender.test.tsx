@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import ComponetRender, { createAttributes } from '../src/ComponetRender';
-import { NODE } from '../src';
+import { NODE } from '../src/transformNodes';
 
 describe('ComponetRender', () => {
   it('renders paragraph with text children', () => {
