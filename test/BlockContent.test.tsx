@@ -33,4 +33,16 @@ describe('BlockContent', () => {
     expect(container.querySelectorAll('.outer').length).toEqual(1);
     expect(container.querySelectorAll('.inner').length).toEqual(1);
   });
+
+  it('Removes inline style', () => {
+    const { getByText, container } = render(
+      <BlockContent
+        rawContent={`<!-- wp:paragraph -->
+    <p>Hi Roy</p><style>p{color:red}</style>
+    <!-- /wp:paragraph -->`}
+      />
+    );
+    expect(getByText('Hi Roy')).toBeTruthy();
+    expect(container.querySelectorAll('style').length).toBeFalsy();
+  });
 });

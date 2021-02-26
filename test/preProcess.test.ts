@@ -1,5 +1,5 @@
-import { NODE } from '../../src';
-import { preProcessTagNode } from '../../src/preProcessNode';
+import { NODE } from '../src/addAndParseBlock';
+import { preProcessTagNode } from '../src/preProcessNode';
 
 test('changes i to em', () => {
   let node: NODE = {
