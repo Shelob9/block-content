@@ -73,8 +73,10 @@
   },
   "dependencies": {
     "@testing-library/react": "^11.2.5",
+    "@types/sanitize-html": "^1.27.1",
     "@wordpress/block-serialization-default-parser": "^3.9.1",
-    "react-html-parser": "^2.0.2"
+    "react-html-parser": "^2.0.2",
+    "sanitize-html": "^2.3.2"
   },
   "repository": {
     "type": "git",
