@@ -2,6 +2,7 @@ import React, { createElement, FC, Fragment, useContext, useMemo } from 'react';
 import { NODE } from '.';
 import { preProcessTagNode } from './preProcessNode';
 import { ThemeContext } from './ThemeProvider';
+import sanitizeHtml from 'sanitize-html';
 
 export interface ComponetsMap {
   [key: string]: FC<any>;
@@ -64,7 +65,7 @@ const ComponetRender: FC<{ node: NODE; components?: ComponetsMap }> = props => {
           return (
             <Fragment key={i}>
               {'text' === child.type ? (
-                <Fragment>{child.data}</Fragment>
+                <Fragment>{sanitizeHtml(child.data as string)}</Fragment>
               ) : (
                 <ComponetRender
                   components={components}
