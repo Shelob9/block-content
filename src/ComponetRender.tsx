@@ -11,12 +11,10 @@ let defaultComponents: ComponetsMap = {
   p: ({ children, className }) => <p className={className}>{children}</p>,
 };
 
-const defaultAllowedAttributes = [
-  'class',
-  'id'
-]
-const getAllowedAttribues = (nodeType: string,
-  tagSettings?:tagSettings
+const defaultAllowedAttributes = ['class', 'id'];
+const getAllowedAttribues = (
+  nodeType: string,
+  tagSettings?: tagSettings
 ): string[] => {
   if (tagSettings) {
     if (tagSettings.hasOwnProperty(nodeType)) {
@@ -34,12 +32,9 @@ const getAllowedAttribues = (nodeType: string,
 };
 export const createAttributes = (
   node: NODE,
-  tagSettings?:tagSettings
+  tagSettings?: tagSettings
 ): { [key: string]: string } => {
-  let allowed = getAllowedAttribues(
-    node.name as string,
-    tagSettings
-  );
+  let allowed = getAllowedAttribues(node.name as string, tagSettings);
   let attributes: { [key: string]: string } = {};
   Object.keys(node.attribs).forEach((att: string) => {
     if (allowed.includes(att)) {
@@ -72,17 +67,17 @@ const ComponetRender: FC<{ node: NODE; components?: ComponetsMap }> = props => {
   }, [props.components, _themeContext]);
 
   const tagSettings = useMemo(() => {
-    if (!_themeContext|| !_themeContext.tagSettings) {
+    if (!_themeContext || !_themeContext.tagSettings) {
       return undefined;
     }
-    return _themeContext.tagSettings
+    return _themeContext.tagSettings;
   }, [_themeContext]);
 
   return createElement(
     node.name && components.hasOwnProperty(node.name)
       ? components[node.name]
       : (node.name as string),
-    createAttributes(node,tagSettings),
+    createAttributes(node, tagSettings),
     node.children
       ? node.children.map((child: NODE, i: number) => {
           return (

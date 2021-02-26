@@ -2,12 +2,12 @@ import React, { createContext, FC } from 'react';
 import { ComponetsMap } from './ComponetRender';
 
 export type tagSettings = {
-  [key: string]: string[]
-}
+  [key: string]: string[];
+};
 
-export const ThemeContext = createContext <{
-  components: ComponetsMap,
-  tagSettings?: tagSettings,
+export const ThemeContext = createContext<{
+  components: ComponetsMap;
+  tagSettings?: tagSettings;
 }>(
   //@ts-ignore
   null
@@ -15,15 +15,11 @@ export const ThemeContext = createContext <{
 
 const ThemeProvider: FC<{
   children: any;
-  components: ComponetsMap
-  tagSettings?: tagSettings
-}> = ({
-  children,
-  components,
-  tagSettings
-}) => {
+  components: ComponetsMap;
+  tagSettings?: tagSettings;
+}> = ({ children, components, tagSettings }) => {
   return (
-    <ThemeContext.Provider value={{ components,tagSettings }}>
+    <ThemeContext.Provider value={{ components, tagSettings }}>
       {children}
     </ThemeContext.Provider>
   );

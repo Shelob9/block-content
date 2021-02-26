@@ -4,8 +4,6 @@ import BlockContent from '../src';
 import ThemeProvider from '../src/ThemeProvider';
 import { ComponetsMap } from '../src/ComponetRender';
 
-
-
 test('uses componets', () => {
   const Test = () => {
     return (
@@ -52,9 +50,7 @@ test('Respects allowed attributes rules', () => {
       />
     );
   };
-  const components: ComponetsMap = {
-    
-  };
+  const components: ComponetsMap = {};
 
   const { container } = render(
     <ThemeProvider components={components}>
