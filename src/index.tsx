@@ -1,7 +1,7 @@
 import BlockContent, { RenderBlockContent } from './BlockContent';
 
 import ThemeProvider from './ThemeProvider';
-
-export { ThemeProvider, RenderBlockContent };
+import addAndParseBlock, { parseHtml } from './addAndParseBlock';
+export { ThemeProvider, RenderBlockContent, addAndParseBlock, parseHtml };
 
 export default BlockContent;

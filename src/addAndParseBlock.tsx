@@ -3,6 +3,12 @@ import React, { createElement, Fragment, ReactElement, ReactNode } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import ComponetRender from './ComponetRender';
 import { preProcessTagNode } from './preProcessNode';
+
+export const parseHtml = (innerHTML: string) => {
+  return ReactHtmlParser(innerHTML, {
+    transform,
+  });
+};
 /**
  * Node being parsed to element
  */
@@ -70,11 +76,7 @@ const addAndParseBlock = (block: Block, els: ReactNode[]) => {
       }
     }
   } else {
-    els.push(
-      ReactHtmlParser(block.innerHTML, {
-        transform,
-      })
-    );
+    els.push(parseHtml(block.innerHTML));
   }
   return els;
 };
