@@ -1,5 +1,5 @@
 import React, { createElement, FC, Fragment, useContext, useMemo } from 'react';
-import { NODE } from '.';
+import { NODE } from './addAndParseBlock';
 import { preProcessTagNode } from './preProcessNode';
 import { ThemeContext } from './ThemeProvider';
 
@@ -22,7 +22,7 @@ const getAllowedAttribues = (nodeType: string): string[] => {
   return allowed;
 };
 export const createAttributes = (node: NODE): { [key: string]: string } => {
-  let allowed = getAllowedAttribues('a');
+  let allowed = getAllowedAttribues(node.name as string);
   let attributes: { [key: string]: string } = {};
   Object.keys(node.attribs).forEach((att: string) => {
     if (allowed.includes(att)) {
