@@ -104,6 +104,12 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 
 Then run either Storybook or the example playground:
 
+### Publish
+
+```bash
+yarn release
+```
+
 ### Storybook
 
 Run inside another terminal:
