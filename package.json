@@ -1,4 +1,11 @@
 {
+  "name": "@shelob9/block-content",
+  "private": false,
+  "author": "Josh Pollock",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shelob9/block-content"
+  },
   "version": "0.5.1",
   "license": "MIT",
   "main": "dist/index.js",
@@ -35,9 +42,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@shelob9/block-content",
-  "private": false,
-  "author": "Josh Pollock",
   "module": "dist/block-content.esm.js",
   "size-limit": [
     {
@@ -75,9 +79,5 @@
     "@testing-library/react": "^11.2.5",
     "@wordpress/block-serialization-default-parser": "^3.9.1",
     "react-html-parser": "^2.0.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Shelob9/block-content"
   }
 }
