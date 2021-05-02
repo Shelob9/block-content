@@ -27,8 +27,10 @@ WordPress' block parser converts blocks to objects. These objects have block att
 ## Install
 
 ```sh
-yarn add @Shelob9/block-content
+yarn add @shelob9/block-content
 ```
+
+https://www.npmjs.com/package/@shelob9/block-content
 
 ## Usage
 
